@@ -1,5 +1,6 @@
 package co.kr.board.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,36 @@ public class BoardServiceImpl implements BoardService {
 	public BoardMapper mapper;
 
 	@Override
-	public List<BoardVO> boardList() {
-		// TODO Auto-generated method stub
-		return mapper.boardList();
+	public List<BoardVO> boardList(int page,String keyword,String type) {
+		// String -> 보내줄값의이름
+		// Object-> 넣어줄값의이름
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		// 한페이지에서 10개의 게시물을 보여줄거라고 선언해준다
+		int amount = 10;
+
+		hashMap.put("startRn", (page - 1) * amount);
+		hashMap.put("endRn", page * amount);
+		hashMap.put("type", type);
+		hashMap.put("keyword", keyword);
+
+		return mapper.boardList(hashMap);
+		
 	}
+
+	@Override
+	public int total() {
+		// TODO Auto-generated method stub
+		return mapper.total();
+	}
+
+	@Override
+	public int noticeTotal(String type, String keyword) {
+		HashMap<String, Object> noticeTotal = new HashMap<String,Object>();
+		noticeTotal.put("type", type);
+		noticeTotal.put("keyword", keyword);
+
+		return mapper.noticeTotal(noticeTotal);
+	}
+
+	
 }

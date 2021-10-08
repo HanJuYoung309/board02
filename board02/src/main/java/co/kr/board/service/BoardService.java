@@ -6,6 +6,11 @@ import co.kr.board.vo.BoardVO;
 
 public interface BoardService {
 
-	List<BoardVO> boardList();
+	List<BoardVO> boardList(int page, String keyword, String type);
+
+	int total();
+	
+	int noticeTotal(String type, String keyword);
+	
 
 }

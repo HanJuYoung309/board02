@@ -3,5 +3,47 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.kr.board.service.mapper.BoardMapper">
+
+<!-- 검색이랑 페이징  -->
+<select id="boardList" resultType="co.kr.board.vo.BoardVO">
+
+<!-- CDATA 부등호 표시를 기호로 인식한다 부등호로 인식되기 위해서 CDATA를 쓴다 -->
+<![CDATA[
+      SELECT * FROM
+      (
+      SELECT ROW_NUMBER() OVER(ORDER BY bnum DESC) rn, 
+            bnum, 
+            title, 
+            writer, 
+            bdate, 
+            bcnt, 
+            bcontent, 
+            btype 
+      FROM  jyboard02
+         ]]>
+         <!-- 동적 쿼리 ->조건문에 따라 실행되는 쿼리 -->
+	<if test="keywrod != null and keyword != ''">
+		WHERE ${type} LIKE '%'||#{keyword}||'%'
+		ROW_NUMBER() OVER(ORDER BY bnum DESC)
+	</if>
+      <![CDATA[
+      )a
+      WHERE a.rn > #{startRn}
+      AND a.rn  <= #{endRn} 
+      ]]>
+
+</select>
+
+	
+	<!-- 글갯수 불러오기, 검색 -->
+	<select id="noticeTotal" resultType="int">
+		select count(*)
+		from
+		jyboard02
+		<if test="keyword != null and keyword != '' ">
+	       where ${type} like '%'||#{keyword}||'%'
+		</if>
+	</select>
+
   
 </mapper>
