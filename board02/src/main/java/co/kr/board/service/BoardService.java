@@ -11,6 +11,12 @@ public interface BoardService {
 	int total();
 	
 	int noticeTotal(String type, String keyword);
+
+	BoardVO getBoard(int bnum);
+
+	int maxUpdate();
+
+	int insert(BoardVO boardVO);
 	
 
 }

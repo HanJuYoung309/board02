@@ -48,5 +48,23 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.noticeTotal(noticeTotal);
 	}
 
+	@Override
+	public BoardVO getBoard(int bnum) {
+		// TODO Auto-generated method stub
+		return mapper.getBoard(bnum);
+	}
+
+	@Override
+	public int maxUpdate() {
+		// TODO Auto-generated method stub
+		return mapper.maxUpdate();
+	}
+
+	@Override
+	public int insert(BoardVO boardVO) {
+		// TODO Auto-generated method stub
+		return mapper.insert(boardVO);
+	}
+
 	
 }

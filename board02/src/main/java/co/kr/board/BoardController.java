@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +32,27 @@ public class BoardController {
 	{
 		System.out.println("List PAGE...");
 		return "board/list";
+	}
+	
+	@RequestMapping(value = "/insert.do", method = RequestMethod.GET)
+	public String insertForm(Model model)
+	{
+		System.out.println("글 추가페이지이동");
+		int max= service.maxUpdate();
+		model.addAttribute("max",max+1);
+
+		return "board/insert";
+	}
+	
+	@RequestMapping(value = "/insert.do", method = RequestMethod.POST)
+	public ModelAndView insert(Model model,BoardVO boardVO)
+	{
+		ModelAndView json= new ModelAndView("jsonView");
+		
+		service.insert(boardVO);
+
+
+		return json;
 	}
 	
 	@RequestMapping(value = "/list.do", method = RequestMethod.GET)
@@ -81,6 +103,18 @@ public class BoardController {
 		json.addObject("next", next);
 			
 		return json;
+	}
+	
+	
+	@RequestMapping(value = "/getBoard.do", method = RequestMethod.GET)
+	public String getBoard(int bnum,Model model ) {
+		
+		BoardVO boardVO = service.getBoard(bnum);
+		
+		model.addAttribute("board",boardVO);
+		
+		return "board/getBoard";
+		
 	}
 	
 

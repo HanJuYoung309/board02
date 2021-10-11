@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.kr.board.service.mapper.BoardMapper">
 
+
 <!-- 검색이랑 페이징  -->
 <select id="boardList" resultType="co.kr.board.vo.BoardVO">
 
@@ -34,6 +35,10 @@
 
 </select>
 
+<select id="getBoard" resultType="co.kr.board.vo.BoardVO">
+   select * from jyboard02  where bnum=#{bnum}
+</select>
+
 	
 	<!-- 글갯수 불러오기, 검색 -->
 	<select id="noticeTotal" resultType="int">
@@ -44,6 +49,18 @@
 	       where ${type} like '%'||#{keyword}||'%'
 		</if>
 	</select>
+	
+	<select id="maxUpdate" resultType="int">
+	 select max(bnum) from jyboard02
+	</select>
+	
+	
+	<insert id="insert">
+	
+	  insert into jyboard02  (bnum,title,writer,bcontent,bcnt,btype)
+	  values(#{bnum},#{title},#{writer},#{bcontent},#{bcnt},#{btype})
+	  
+	</insert>
 
   
 </mapper>

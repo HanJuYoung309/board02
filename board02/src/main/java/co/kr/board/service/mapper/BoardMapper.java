@@ -18,4 +18,10 @@ public interface BoardMapper {
 
 	int noticeTotal(HashMap<String, Object> noticeTotal);
 
+	BoardVO getBoard(int bnum);
+
+	int maxUpdate();
+
+	int insert(BoardVO boardVO);
+
 }

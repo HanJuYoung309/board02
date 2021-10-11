@@ -53,7 +53,7 @@
 </head>
 <body>
     <h1>목록페이지 </h1>
-    
+    <a href="/insert.do">글추가 </a>
     <label for="">검색</label>
    <select id="typle">
       <option value="title">제목</option>
