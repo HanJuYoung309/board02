@@ -4,10 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.kr.board.service.mapper.ReplyMapper">
 
-<insert id="insert">
+<insert id="create">
 
    insert into reply
    (rno,bno,replytext,replyer)values
    (reply_seq.nextval,#{bno},#{replytext},#{replyer})
 </insert>
+
+ <select id = "list"
+    resultType = "co.kr.board.vo.ReplyVO">
+    <!-- 댓글의 작성자와 회원의 아이디가 같고, 글번호가 같을 경우에 댓글 리스트를 내림차순으로 검색함 -->
+    select * from reply
+    where bno = #{bno}
+    order by rno
+    </select>
+    
+    
+    <update id = "updateReply">
+    <!-- 댓글의 번호와 회원의 아이디가 모두다 같을경우에만 수정할 수 있도록 쿼리를 설정 -->    
+    update reply set replytext = #{replytext} where rno = #{rno}
+    </update>
+ 
+ 
+    
+    <delete id="delete">
+    <!-- 댓글의 번호가 같을 경우에 삭제할 수 있도록 설정 
+    (아이디는 앞에서 같지않으면 버튼조차 뜨지 않기때문에 따로 쿼리를 추가할 필요 없다.) -->
+    delete from reply where rno = #{rno}
+    </delete>
 </mapper>

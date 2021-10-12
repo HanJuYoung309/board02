@@ -5,10 +5,10 @@
 <mapper namespace="co.kr.board.service.mapper.BoardMapper">
 
 
-<!-- 검색이랑 페이징  -->
-<select id="boardList" resultType="co.kr.board.vo.BoardVO">
+	<!-- 검색이랑 페이징 -->
+	<select id="boardList" resultType="co.kr.board.vo.BoardVO">
 
-<!-- CDATA 부등호 표시를 기호로 인식한다 부등호로 인식되기 위해서 CDATA를 쓴다 -->
+		<!-- CDATA 부등호 표시를 기호로 인식한다 부등호로 인식되기 위해서 CDATA를 쓴다 -->
 <![CDATA[
       SELECT * FROM
       (
@@ -22,45 +22,52 @@
             btype 
       FROM  jyboard02
          ]]>
-         <!-- 동적 쿼리 ->조건문에 따라 실행되는 쿼리 -->
-	<if test="keywrod != null and keyword != ''">
-		WHERE ${type} LIKE '%'||#{keyword}||'%'
-		ROW_NUMBER() OVER(ORDER BY bnum DESC)
-	</if>
+		<!-- 동적 쿼리 ->조건문에 따라 실행되는 쿼리 -->
+		<if test="keywrod != null and keyword != ''">
+			WHERE ${type} LIKE '%'||#{keyword}||'%'
+			ROW_NUMBER() OVER(ORDER BY bnum DESC)
+		</if>
       <![CDATA[
       )a
       WHERE a.rn > #{startRn}
       AND a.rn  <= #{endRn} 
       ]]>
 
-</select>
+	</select>
 
-<select id="getBoard" resultType="co.kr.board.vo.BoardVO">
-   select * from jyboard02  where bnum=#{bnum}
-</select>
-
-	
 	<!-- 글갯수 불러오기, 검색 -->
 	<select id="noticeTotal" resultType="int">
 		select count(*)
 		from
 		jyboard02
 		<if test="keyword != null and keyword != '' ">
-	       where ${type} like '%'||#{keyword}||'%'
+			where ${type} like '%'||#{keyword}||'%'
 		</if>
 	</select>
-	
+
 	<select id="maxUpdate" resultType="int">
-	 select max(bnum) from jyboard02
+		select max(bnum) from jyboard02
 	</select>
-	
-	
+
+
 	<insert id="insert">
-	
-	  insert into jyboard02  (bnum,title,writer,bcontent,bcnt,btype)
-	  values(#{bnum},#{title},#{writer},#{bcontent},#{bcnt},#{btype})
-	  
+
+		insert into jyboard02 (bnum,title,writer,bcontent,bcnt,btype)
+		values(#{bnum},#{title},#{writer},#{bcontent},#{bcnt},#{btype})
+
 	</insert>
 
-  
+	<select id="getBoard" resultType="co.kr.board.vo.BoardVO">
+		select *from  jyboard02
+		where bnum=#{bnum}
+	</select>
+
+	<!-- 좋아요 눌렀는지 여부 확인 -->
+	<select id="likecheck" resultType="map">
+		select likecheck
+		from training_like
+		where bbsidx=#{bbsidx}
+		and   useridx=#{useridx}
+	</select>
+
 </mapper>

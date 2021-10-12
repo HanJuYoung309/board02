@@ -2,6 +2,7 @@ package co.kr.board.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,49 @@ public class BoardServiceImpl implements BoardService {
 	public int insert(BoardVO boardVO) {
 		// TODO Auto-generated method stub
 		return mapper.insert(boardVO);
+	}
+
+	@Override
+	public Map<String, Object> likecheck(Map<String, Object> idxMap) {
+		// TODO Auto-generated method stub
+		return mapper.likecheck(idxMap);
+	}
+
+	@Override
+	public void insertLikeBtn(Map<String, Object> commandMap) {
+		
+		mapper.insertLikeBtn(commandMap);
+		
+	}
+
+	@Override
+	public void updateLikeCntPlus(Map<String, Object> commandMap) {
+
+
+		mapper.updateLikeCntPlus(commandMap);
+		
+	}
+
+	@Override
+	public void updateLikeCheck(Map<String, Object> commandMap) {
+
+
+		mapper.updateLikeCheck(commandMap);
+		
+	}
+
+	@Override
+	public void updateLikeCntMinus(Map<String, Object> commandMap) {
+
+
+		mapper.updateLikeCntMinus(commandMap);
+		
+	}
+
+	@Override
+	public Map<String, Object> getLikeCnt(Map<String, Object> commandMap) {
+		// TODO Auto-generated method stub
+		return mapper.getLikeCnt(commandMap);
 	}
 
 	
