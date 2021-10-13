@@ -6,11 +6,13 @@ public class ReplyVO {
 	
 	private int rno;
 	private int bno;
+
 	private String replytext;
 	private String replyer;
 	private Date regdate;
 	private Date updatedate;
 	private String writer;
+	
 	
 	public ReplyVO() {
 		// TODO Auto-generated constructor stub

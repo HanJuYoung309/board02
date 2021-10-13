@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,8 @@ import co.kr.board.vo.ReplyVO;
 
 @Controller
 public class BoardController {
+	
+	 private static final Logger logger= LoggerFactory.getLogger(BoardController.class);
 
 	@Autowired
 	public BoardService service;
@@ -211,23 +215,25 @@ public class BoardController {
         return resultMap;
     }
 
-	
-    //댓글 생성
-    @RequestMapping(value="reply_insert.do", method = RequestMethod.POST)    //세부적인 url pattern
-    public void insert (ReplyVO vo, HttpSession session,
-             @RequestParam(value="replytext") String replytext,
-             @RequestParam(value="bno") int bno ,Model model) {
+    
+    
+
+    //댓글 입력
+    @RequestMapping(value="/reply_insert.do", method = RequestMethod.POST)    
+    @ResponseBody
+    public ModelAndView insert (ReplyVO replyVO,Model model) {
     	
-    	System.out.println("댓글생성 컨트롤러...");
-    	
-    	model.addAttribute("vo",vo);  
-        vo.setReplytext(replytext);
-        vo.setBno(bno);
-        System.out.println(vo);
+    	ModelAndView json= new ModelAndView("jsonView");
+    	model.addAttribute("reply",json);
+    	logger.info("댓글 작성 컨트롤러 ");
+    	//System.out.println("댓글생성 컨트롤러...");
+    
         //댓글이 테이블에 저장된다
-        replyService.create(vo);
-        
-    }
+        replyService.insert(replyVO);
+        return json;
+        }
+ 
+	
     //댓글 수정
     @RequestMapping("/board/reply_update.do")    //세부적인 url pattern
     public String reply_update (@RequestParam(value="rno") int rno, 
@@ -235,8 +241,8 @@ public class BoardController {
     		,@RequestParam(value="bno")int bno, ReplyVO vo) throws Exception{
         
     	BoardVO boardvo= new BoardVO();
-         vo.setRno(rno);
-         vo.setReplytext(replytext);
+        vo.setRno(rno);
+        vo.setReplytext(replytext);
        
         System.out.println("dto에 있는값들 출력함"+vo);
  

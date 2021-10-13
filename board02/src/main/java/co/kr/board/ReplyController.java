@@ -47,12 +47,12 @@ public class ReplyController {
 	        return mav;
 	    }
 	    //댓글 목록을 ArrayList로 리턴함
-	    @RequestMapping("reply_list_json.do")
+	    @RequestMapping("/reply_list_json.do")
 	    public List<ReplyVO> list_json(int bno){
 	        
 	        return service.list(bno);
 	        
 	    }
-	 
+	
 	    
 }

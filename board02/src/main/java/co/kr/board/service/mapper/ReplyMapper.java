@@ -10,11 +10,9 @@ import co.kr.board.vo.ReplyVO;
 @Mapper
 public interface ReplyMapper {
 
-	int insert(BoardVO boardVO);
+	int insert(ReplyVO replyVO);
 
 	List<ReplyVO> list(int bno);
-
-	void create(ReplyVO vo);
 
 	void reply_update(ReplyVO vo);
 

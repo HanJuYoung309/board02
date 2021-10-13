@@ -18,7 +18,7 @@ $(function(){
     $("#btn_reply_Update").click(function(){
     if(confirm("수정 하시겠습니까?")){
         
-    //수정하는데 필요한 정보들, 댓글 번호, 글 내용, 작성자 아이디, 게시글 번호를 변수에 저장한다.
+  
         var rno = $("#rno").val();
         var replytext = $("textarea#replytext").text();
         var user_id = $("#user_id").val();
@@ -34,8 +34,7 @@ $(function(){
     $("#btn_reply_Delete").click(function(){
         
         if(confirm("삭제 하시겠습니까?")){
-        
-        //댓글 삭제를 하기위해 댓글 번호, 글 번호, 댓글 내용, 그리고 게시글 세부 페이지로 포워딩 하기 위해 페이지 관련 값들을 변수에 저장한다.
+     
             var rno = $("#rno").val();
             var member_bno = $("#bno").val();
             var replytext = $("textarea#replytext").text();
@@ -45,7 +44,7 @@ $(function(){
             
             document.form1.submit();
             
-            alert("댓글이 삭제되었습니다.")
+            alert("댓글이 삭제되었습니다.");
             
         }
     });
@@ -75,7 +74,7 @@ $(function(){
 ${row.replytext}
  
 <!-- 폼태그 안에 위쪽에 있는 자바스크립트 구문에 필요한 값들을 노출시키지 않게 하기 위해 hidden타입으로 값들을 전달한다. -->
-<form method = "POST" id = "form1">
+<form method = "POST" id = "form1" >
  
 <input type = "hidden" id = "rno" name = "rno" value = "${row.rno}">
 <input type = "hidden" id = "bno" name = "bno" value = "${row.bno}">

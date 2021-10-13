@@ -17,9 +17,9 @@ public class ReplyServiceImpl  implements ReplyService{
 	public ReplyMapper mapper;
 
 	@Override
-	public int insert(BoardVO boardVO) {
+	public int insert(ReplyVO replyvo) {
 		// TODO Auto-generated method stub
-		return mapper.insert(boardVO);
+		return mapper.insert(replyvo);
 	}
 
 	@Override
@@ -28,12 +28,7 @@ public class ReplyServiceImpl  implements ReplyService{
 		return mapper.list(bno);
 	}
 
-	@Override
-	public void create(ReplyVO vo) {
-		
-		mapper.create(vo);
-		
-	}
+
 
 	@Override
 	public void reply_update(ReplyVO vo) {

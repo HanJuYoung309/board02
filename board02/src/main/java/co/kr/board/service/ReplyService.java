@@ -7,11 +7,10 @@ import co.kr.board.vo.ReplyVO;
 
 public interface ReplyService {
 
-	int insert(BoardVO boardVO);
+	int insert(ReplyVO replyVO);
 
 	List<ReplyVO> list(int bno);
 
-	void create(ReplyVO vo);
 
 	void reply_update(ReplyVO vo);
 

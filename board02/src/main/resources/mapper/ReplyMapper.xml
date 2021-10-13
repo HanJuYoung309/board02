@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.kr.board.service.mapper.ReplyMapper">
 
-<insert id="create">
+<insert id="insert">
 
    insert into reply
-   (rno,bno,replytext,replyer)values
-   (reply_seq.nextval,#{bno},#{replytext},#{replyer})
+   (rno,bno,replytext,replyer,regdate,updatedate)values
+   (reply_seq.nextval,#{bno},#{replytext},#{replyer},sysdate,sysdate)
 </insert>
 
  <select id = "list"
